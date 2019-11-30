@@ -4,12 +4,12 @@
 export interface FilterInfo{
 	readonly name: string,
 	readonly description: string,
-	inputs: [[Object]],
-	outputs: [[Object]],
-	priv_class: {
-		type: 'Class',
-		class_name: 'abench',
-		options: [Object]
+	readonly inputs?: any,
+	outputs?: any,
+	readonly priv_class: {
+		readonly type: 'Class',
+		readonly class_name: 'abench',
+		readonly options: [Object]
 	},
 	flags: {
 			DYNAMIC_INPUTS: false,

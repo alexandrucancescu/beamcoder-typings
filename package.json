@@ -1,20 +1,22 @@
 {
-  "name": "@types/beamcoder-typings",
+  "name": "@types/beamcoder",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Typings for beamcoder package",
+  "main": "",
+  "types": "index",
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alexandrucancescu/beamcoder-typings.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alexandru Cancescu",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/alexandrucancescu/beamcoder-typings/issues"
   },
-  "homepage": "https://github.com/alexandrucancescu/beamcoder-typings#readme"
+  "homepage": "https://github.com/alexandrucancescu/beamcoder-typings#readme",
+  "devDependencies": {
+    "@types/node": "^12.12.14"
+  }
 }
