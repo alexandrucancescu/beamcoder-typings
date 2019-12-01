@@ -4,7 +4,9 @@
   "description": "Typings for beamcoder package",
   "main": "",
   "types": "index",
-  "scripts": {},
+  "scripts": {
+    "lint": "dtslint"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alexandrucancescu/beamcoder-typings.git"
@@ -17,7 +19,9 @@
   },
   "homepage": "https://github.com/alexandrucancescu/beamcoder-typings#readme",
   "devDependencies": {
-    "@types/node": "^12.12.14"
+    "@types/node": "^12.12.14",
+    "dtslint": "^2.0.2",
+    "tslint": "^5.20.1"
   },
   "dependencies": {
     "beamcoder": "^0.3.4"
