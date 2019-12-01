@@ -1,4 +1,4 @@
-import {Frame} from "./Common";
+import { Frame } from "./Common";
 
 export interface FilterInfo {
 	readonly name: string;
@@ -22,11 +22,6 @@ export interface FilterInfo {
 	[key: string]: any;
 }
 
-export interface Filter {
-
-
-}
-
 export interface FiltererOptions {
 	filterType: 'video'| 'audio' | 'subtitle';
 	inputParams: [
@@ -38,7 +33,7 @@ export interface FiltererOptions {
 			timeBase?: number[];
 			pixelAspect?: number[];
 			[key: string]: any;
-		},
+		}
 	];
 	outputParams: [
 		{
