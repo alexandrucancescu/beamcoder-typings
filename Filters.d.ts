@@ -1,24 +1,22 @@
-
-
-
 export interface FilterInfo{
 	readonly name: string,
 	readonly description: string,
 	readonly inputs?: any,
-	outputs?: any,
+	readonly outputs?: any,
 	readonly priv_class: {
 		readonly type: 'Class',
-		readonly class_name: 'abench',
-		readonly options: [Object]
+		readonly class_name: string,
+		readonly options?: any
 	},
-	flags: {
-			DYNAMIC_INPUTS: false,
-			DYNAMIC_OUTPUTS: false,
-			SLICE_THREADS: false,
-			SUPPORT_TIMELINE_GENERIC: false,
-			SUPPORT_TIMELINE_INTERNAL: false
-		}
+	readonly flags: {
+		readonly DYNAMIC_INPUTS: boolean,
+		readonly DYNAMIC_OUTPUTS: boolean,
+		readonly SLICE_THREADS: boolean,
+		readonly SUPPORT_TIMELINE_GENERIC: boolean,
+		readonly SUPPORT_TIMELINE_INTERNAL: boolean
+	}
 }
+
 
 /**
  * Key value object
@@ -28,5 +26,7 @@ export type FilterInfoMap={
 	[key:string]:FilterInfo;
 }
 
-
-export function filters():any;
+/**
+ * An object with all the available filters
+ */
+export function filters():FilterInfo;

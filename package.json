@@ -18,5 +18,8 @@
   "homepage": "https://github.com/alexandrucancescu/beamcoder-typings#readme",
   "devDependencies": {
     "@types/node": "^12.12.14"
+  },
+  "dependencies": {
+    "beamcoder": "^0.3.4"
   }
 }

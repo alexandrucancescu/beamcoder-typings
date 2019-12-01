@@ -67,6 +67,16 @@ export interface Decoder extends OptionalDecoderInfo{
 	flush():Promise<DecodeResult>
 
 	/**
+	 * Undocumented
+	 */
+	useParams(...any):any
+
+	/**
+	 * Undocumented
+	 */
+	extractParams(...any):any
+
+	/**
 	 * A decoder has many properties.
 	 * These can be set before decoding in the usual way for a Javascript object.
 	 * Some of the properties are more appropriate for encoding but are presentfor information.
@@ -172,8 +182,4 @@ interface OptionalDecoderInfo{
 	hwaccel_flags?: any
 	apply_cropping?: any
 	extra_hw_frames?: any
-	// decode: [Function],
-	// flush: [Function],
-	// extractParams: [Function],
-	// useParams: [Function]
 }
