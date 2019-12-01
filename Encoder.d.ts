@@ -32,8 +32,8 @@ export interface Encoder {
 	/**
 	 * Encode an uncompressed frame and create a compressed packet
 	 */
-	encode(frame: Frame | Frame[]): Promise<Packet>;
-	encode(...frames: Frame[]): Promise<Packet>;
+	encode(frame: Frame | Frame[]): Promise<EncodeResult>;
+	encode(...frames: Frame[]): Promise<EncodeResult>;
 
 	/**
 	 * Once all frames have been passed to the encoder, it is necessary to call
@@ -41,7 +41,7 @@ export interface Encoder {
 	 * or delivered by the encoder, they will be completed and provided in the
 	 * resolved value.
 	 */
-	flush(): Promise<Packet>;
+	flush(): Promise<EncodeResult>;
 }
 
 export function encoders(): EncoderInfoMap;
