@@ -30,6 +30,7 @@ export interface Frame {
 	readonly flags: {
 		CORRUPT?: boolean;
 		DISCARD?: boolean;
+		[key: string]: any;
 	};
 	nb_samples?: number;
 	format?: string;
@@ -66,6 +67,8 @@ export interface Frame {
 	crop_left?: number;
 	crop_right?: number;
 
+	[key: string]: any;
+
 	/**
 	 * Beam coder exposes some of FFmpeg's ability to calculate the size of data buffers.
 	 * If you pass width, height and format properties for video frames, or channels/channel_layout,
@@ -78,6 +81,55 @@ export interface Frame {
 	 * call alloc() after the factory method
 	 */
 	alloc(): Frame;
+}
+
+export interface PixelFormatInfo {
+	name: string;
+	nb_components?: number;
+	log2_chroma_h?: number;
+	log2_chroma_w?: number;
+	flags: {
+		BE?: boolean;
+		PAL?: boolean;
+		BITSTREAM?: boolean;
+		HWACCEL?: boolean;
+		PLANAR?: boolean;
+		RGB?: boolean;
+		PSEUDOPAL?: boolean;
+		ALPHA?: boolean;
+		BAYER?: boolean;
+		FLOAT?: boolean;
+		[key: string]: boolean;
+	};
+	comp?: {
+		code?: string;
+		plane?: number;
+		step?: number;
+		offset?: number;
+		shift?: number;
+		depth?: number;
+		[key: string]: any;
+	};
+	alias?: string;
+	[key: string]: any;
+}
+
+export interface SampleFormatInfo {
+	type: 'SampleFormat';
+	name?: string;
+	packed?: string;
+	planar?: string;
+	bytes_per_sample?: number;
+	is_planar?: boolean;
+	[key: string]: any;
+}
+
+export interface PixelFormatInfoMap {
+	[key: string]: PixelFormatInfo;
+}
+
+export interface SampleFormatInfoMap {
+	[key: string]: SampleFormatInfo;
 }
 
 /**
@@ -93,7 +145,7 @@ export function frame(options: {pts?: number, width: number, height: number, for
 /**
  *  Details of the planes expected for each pixel format
  */
-export function pix_fmts(): any[];
+export function pix_fmts(): PixelFormatInfoMap;
 
 export function sample_fmts(): any[];
 

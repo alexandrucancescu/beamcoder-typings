@@ -19,6 +19,11 @@ export interface EncoderInfoMap {
 	[key: string]: EncoderInfo;
 }
 
+export interface EncodeResult {
+	total_time: number; // possibly empty array of packets for further processing
+	packets?: Packet[]; // microseconds that the operation took to complete
+}
+
 export interface Encoder {
 	priv_data: {
 		preset?: string;
@@ -29,6 +34,14 @@ export interface Encoder {
 	 */
 	encode(frame: Frame | Frame[]): Promise<Packet>;
 	encode(...frames: Frame[]): Promise<Packet>;
+
+	/**
+	 * Once all frames have been passed to the encoder, it is necessary to call
+	 * the asynchronous flush() method. If any packets are yet to be fully encoded
+	 * or delivered by the encoder, they will be completed and provided in the
+	 * resolved value.
+	 */
+	flush(): Promise<Packet>;
 }
 
 export function encoders(): EncoderInfoMap;
