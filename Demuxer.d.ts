@@ -80,7 +80,8 @@ export interface DemuxerStream {
 	readonly type: 'Stream';
 	readonly index: number; // index of the stream in the demuxer
 	readonly id: number;
-	readonly time_base: any; // documented as time_base: [ 1, 90000 ],
+	readonly time_base: number[];
+	readonly sample_aspect_ratio: number[];
 	readonly codecpar: {
 		readonly type: 'CodecParameters';
 		readonly codec_type: string; // video | audio | subtitles

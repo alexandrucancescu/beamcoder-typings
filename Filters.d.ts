@@ -1,3 +1,5 @@
+import {Frame} from "./Common";
+
 export interface FilterInfo {
 	readonly name: string;
 	readonly description: string;
@@ -7,14 +9,72 @@ export interface FilterInfo {
 		readonly type: 'Class';
 		readonly class_name: string;
 		readonly options?: any
+		[key: string]: any;
 	};
 	readonly flags: {
-		readonly DYNAMIC_INPUTS: boolean;
-		readonly DYNAMIC_OUTPUTS: boolean;
-		readonly SLICE_THREADS: boolean;
-		readonly SUPPORT_TIMELINE_GENERIC: boolean;
-		readonly SUPPORT_TIMELINE_INTERNAL: boolean;
+		readonly DYNAMIC_INPUTS?: boolean;
+		readonly DYNAMIC_OUTPUTS?: boolean;
+		readonly SLICE_THREADS?: boolean;
+		readonly SUPPORT_TIMELINE_GENERIC?: boolean;
+		readonly SUPPORT_TIMELINE_INTERNAL?: boolean;
+		readonly [key: string]: boolean;
 	};
+	[key: string]: any;
+}
+
+export interface Filter {
+
+
+}
+
+export interface FiltererOptions {
+	filterType: 'video'| 'audio' | 'subtitle';
+	inputParams: [
+		{
+			name: string;
+			width?: number;
+			height?: number;
+			pixelFormat?: string;
+			timeBase?: number[];
+			pixelAspect?: number[];
+			[key: string]: any;
+		},
+	];
+	outputParams: [
+		{
+			name: string;
+			width?: number;
+			height?: number;
+			pixelFormat?: string;
+			timeBase?: number[];
+			pixelAspect?: number[];
+			[key: string]: any;
+		}
+	];
+	filterSpec?: string;
+}
+
+export interface FilterGraph {
+	type: string;
+	filters: [{
+		type: string;
+		filter: [Filter];
+		name: string;
+	}];
+
+	/**
+	 * An ascii string represention of the filter graph
+	 */
+	dump(): string;
+}
+
+export interface Filter {
+	/**
+	 * The properties of the resolved filterer object
+	 */
+	graph(): FilterGraph;
+	filter(toFilter: {name: string, frames: Frame[]}): Frame[];
+	filter(frames: Frame[]): Frame[];
 }
 
 /**
@@ -29,3 +89,5 @@ export interface FilterInfoMap {
  * An object with all the available filters
  */
 export function filters(): FilterInfo;
+
+export function filterer(filtererOptions: FiltererOptions): Filter;
