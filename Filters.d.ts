@@ -26,7 +26,7 @@ export interface FiltererOptions {
 	filterType: 'video'| 'audio' | 'subtitle';
 	inputParams: [
 		{
-			name: string;
+			name?: string;
 			width?: number;
 			height?: number;
 			pixelFormat?: string;
@@ -37,7 +37,7 @@ export interface FiltererOptions {
 	];
 	outputParams: [
 		{
-			name: string;
+			name?: string;
 			width?: number;
 			height?: number;
 			pixelFormat?: string;
@@ -46,7 +46,7 @@ export interface FiltererOptions {
 			[key: string]: any;
 		}
 	];
-	filterSpec?: string;
+	filterSpec: string;
 }
 
 export interface FilterGraph {
@@ -63,13 +63,18 @@ export interface FilterGraph {
 	dump(): string;
 }
 
+export interface FilterResult {
+	name: string | 'out' | 'in';
+	frames: Frame[];
+}
+
 export interface Filter {
 	/**
 	 * The properties of the resolved filterer object
 	 */
-	graph(): FilterGraph;
-	filter(toFilter: {name: string, frames: Frame[]}): Frame[];
-	filter(frames: Frame[]): Frame[];
+	graph: FilterGraph;
+	filter(toFilter: {name: string, frames: Frame[]}): Promise<FilterResult[]>;
+	filter(frames: Frame[]): Promise<FilterResult[]>;
 }
 
 /**
@@ -85,4 +90,4 @@ export interface FilterInfoMap {
  */
 export function filters(): FilterInfo;
 
-export function filterer(filtererOptions: FiltererOptions): Filter;
+export function filterer(filtererOptions: FiltererOptions): Promise<Filter>;
