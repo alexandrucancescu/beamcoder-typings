@@ -80,17 +80,19 @@ export interface DemuxerStream {
 	readonly type: 'Stream';
 	readonly index: number; // index of the stream in the demuxer
 	readonly id: number;
-	readonly time_base: number[];
-	readonly sample_aspect_ratio: number[];
+	readonly time_base?: number[];
+	readonly sample_aspect_ratio?: number[];
+	readonly r_frame_rate?: any[];
+	readonly duration?: number;
 	readonly codecpar: {
 		readonly type: 'CodecParameters';
 		readonly codec_type: string; // video | audio | subtitles
 		readonly codec_id: number;
 		readonly name: number;
-		readonly codec_tag: number;
-		readonly format: string; // pixel format
-		readonly width: number;
-		readonly height: number;
+		readonly codec_tag?: number;
+		readonly format?: string; // pixel format
+		readonly width?: number;
+		readonly height?: number;
 
 		// other undocumented properties
 		readonly [key: string]: any;
@@ -101,7 +103,7 @@ export interface DemuxerStream {
 
 export interface Demuxer {
 	readonly type: "demuxer";
-	readonly iformat: {
+	readonly iformat: string | {
 		readonly type: 'InputFormat';
 		readonly name: string;
 		readonly [key: string]: any;
@@ -110,6 +112,11 @@ export interface Demuxer {
 		readonly NOHEADER: boolean;
 		readonly UNSEEKABLE: boolean
 		readonly [key: string]: boolean;
+	};
+	readonly priv_data: {
+		video_size?: number[];
+		pixel_format?: string;
+		framerate?: number[];
 	};
 	readonly streams: ReadonlyArray<DemuxerStream>;
 	readonly url?: string;
