@@ -21,7 +21,13 @@ export interface MuxerInfoMap {
 }
 
 export interface MuxerStream {
+	index: number;
+	time_base: number[];
+	id: number;
 	codecpar: {
+		type: string;
+		codec_type: 'video' | 'audio' | 'subtitle';
+		codec_id: number;
 		height?: number;
 		width: number;
 		format: number; // Pixel format for video , sample format for audio
@@ -35,6 +41,14 @@ export interface MuxerStream {
 }
 
 export interface Muxer {
+	type: string;
+	oformat: string;
+	priv_data: {
+		reserve_index_space?: number;
+		write_channel_mask?: boolean;
+		[key: string]: any;
+	};
+	streams?: MuxerStream[];
 	[key: string]: any;
 	newStream(options: {name: string, time_base: number[], interleaved: boolean}): MuxerStream;
 
@@ -43,7 +57,7 @@ export interface Muxer {
 	 * if some of the options could not be set, an object containing an
 	 * unset property detailing which of the properties could not be set.
 	 */
-	openIO(options: {url: string, options: any}): Promise<null>;
+	openIO(options: {url: string, options?: any}): Promise<null>;
 }
 
 export function muxers(): MuxerInfoMap;
