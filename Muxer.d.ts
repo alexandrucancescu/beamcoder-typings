@@ -36,7 +36,7 @@ export interface MuxerStream {
 
 export interface Muxer {
 	[key: string]: any;
-	newStream(options: {codec_name: string, timebase: number[], interleaved: boolean}): MuxerStream;
+	newStream(options: {name: string, timebase: number[], interleaved: boolean}): MuxerStream;
 
 	/**
 	 * @returns On success, the returned promise resolves to undefined or,
