@@ -25,6 +25,8 @@ export interface EncodeResult {
 }
 
 export interface Encoder {
+	name: string;
+	long_name: string;
 	priv_data: {
 		preset?: string;
 	};
