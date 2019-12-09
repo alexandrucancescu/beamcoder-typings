@@ -1,4 +1,5 @@
 import { DemuxerStream } from "./Demuxer";
+import { Packet } from "./Common";
 
 export interface MuxerInfo {
 	type: "OutputFormat";
@@ -58,6 +59,38 @@ export interface Muxer {
 	 * unset property detailing which of the properties could not be set.
 	 */
 	openIO(options: {url: string, options?: any}): Promise<null>;
+
+	/**
+	 * Write the header to the file. This must be done even for formats that
+	 * don't have a header as part of the internal structure as this step also
+	 * initializes the internal data structures for writing
+	 */
+	writeHeader(options: any): Promise<{INIT_IN: 'WRITE_HEADER', unset: any}>;
+
+	/**
+	 * In some cases, it is necessary to initialize the structures of the muxer
+	 * before writing the header. In this case, call the asynchronous initOutput()
+	 * method of the muxer first. This method can also take options to initialise
+	 * muxer-specific parameters. Further configure the initialized muxer and then
+	 * call writeHeader() before writing any packets or frames
+	 */
+	initOutput(options: any): Promise<{INIT_IN: string, unset: any}>;
+
+	/**
+	 * The method expects a single argument that is either a packet or an options object.
+	 * If an options object, provide either a single packet property, or a frame and a
+	 * stream_index property
+	 */
+	writeFrame(packet: Packet): Promise<void>;
+	writeFrame(options: {packet: Packet[]}): Promise<void>;
+	writeFrame(options: {frame: Packet[], stream_index: number}): Promise<void>;
+
+	/**
+	 * The trailer is the end of the file or stream and is written after the muxer
+	 * has drained its buffers of all remaining packets and frames.
+	 * Writing the trailer also closes the file or stream
+	 */
+	writeTrailer(): Promise<void>;
 }
 
 export function muxers(): MuxerInfoMap;

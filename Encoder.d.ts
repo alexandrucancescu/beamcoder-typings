@@ -46,7 +46,23 @@ export interface Encoder {
 	flush(): Promise<EncodeResult>;
 }
 
+export interface EncoderOptions {
+	name?: string;
+	codec_id?: string;
+	channels?: number;
+	sample_rate?: number;
+	channel_layout?: string;
+	sample_fmt?: string;
+	width?: number;
+	height?: number;
+	bit_rate?: number;
+	time_base?: number[];
+	framerate?: number[];
+	gop_size?: number;
+	max_b_frames?: number;
+	pix_fmt?: string;
+}
+
 export function encoders(): EncoderInfoMap;
 
-export function encoder(options: {name: string}): Encoder;
-export function encoder(options: {codec_id: number}): Encoder;
+export function encoder(options: EncoderOptions): Encoder;
