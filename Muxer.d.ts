@@ -65,7 +65,7 @@ export interface Muxer {
 	 * don't have a header as part of the internal structure as this step also
 	 * initializes the internal data structures for writing
 	 */
-	writeHeader(options: any): Promise<{INIT_IN: 'WRITE_HEADER', unset: any}>;
+	writeHeader(options?: any): Promise<{INIT_IN: 'WRITE_HEADER', unset: any}>;
 
 	/**
 	 * In some cases, it is necessary to initialize the structures of the muxer
@@ -74,7 +74,7 @@ export interface Muxer {
 	 * muxer-specific parameters. Further configure the initialized muxer and then
 	 * call writeHeader() before writing any packets or frames
 	 */
-	initOutput(options: any): Promise<{INIT_IN: string, unset: any}>;
+	initOutput(options?: any): Promise<{INIT_IN: string, unset: any}>;
 
 	/**
 	 * The method expects a single argument that is either a packet or an options object.
